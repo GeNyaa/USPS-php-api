@@ -28,6 +28,11 @@ class Address
     {
         return $this->setField('Address2', $value);
     }
+    
+    public function setAddress2($value)
+    {
+        return $this->setField('Address2', $value);
+    }
 
     /**
      * Set the address1 property usually the apt or suit number.
@@ -37,6 +42,11 @@ class Address
      * @return object Address
      */
     public function setApt($value)
+    {
+        return $this->setField('Address1', $value);
+    }
+    
+    public function setAddress1($value)
     {
         return $this->setField('Address1', $value);
     }
@@ -85,6 +95,11 @@ class Address
      * @return object Address
      */
     public function setZip5($value)
+    {
+        return $this->setField('Zip5', $value);
+    }
+    
+    public function setZipcode($value)
     {
         return $this->setField('Zip5', $value);
     }
