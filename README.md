@@ -22,12 +22,12 @@ Requirements
 
 Install
 =======
-`composer require vinceg/usps-php-api`
+`composer require genyaa/usps-php-api`
 
 Package
 =======
 
-https://packagist.org/packages/vinceg/usps-php-api
+https://packagist.org/packages/genyaa/usps-php-api
 
 Examples
 =======
