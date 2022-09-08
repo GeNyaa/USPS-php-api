@@ -30,7 +30,7 @@ class Rate extends USPSBase
      */
     public function getRate($timeout = 60)
     {
-        return $this->doRequest(NULL,$timeout);
+        return $this->doRequest(NULL, $timeout);
     }
 
     /**
