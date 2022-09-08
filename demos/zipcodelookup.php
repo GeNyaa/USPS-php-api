@@ -11,12 +11,12 @@ $zipcode = new \USPS\ZipCodeLookup('xxxx');
 // Create new address object and assign the properties
 // apartently the order you assign them is important so make sure
 // to set them as the example below
-$address = new \USPS\Address();
-$address->setFirmName('Apartment');
-$address->setApt('100');
-$address->setAddress('9200 Milliken Ave');
-$address->setCity('Rancho Cucomonga');
-$address->setState('CA');
+$address = (new \USPS\Address())
+    ->setFirmName('Apartment')
+    ->setApt('100')
+    ->setAddress('9200 Milliken Ave')
+    ->setCity('Rancho Cucomonga')
+    ->setState('CA');
 
 // Add the address object to the zipcode lookup class
 $zipcode->addAddress($address);

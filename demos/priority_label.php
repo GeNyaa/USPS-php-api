@@ -13,20 +13,11 @@ $label->setToAddress('Vincent', 'Gabriel', '', '230 Murray St', 'New York', 'NY'
 $label->setWeightOunces(1);
 $label->setField(36, 'LabelDate', '03/12/2014');
 
-//$label->setField(32, 'SeparateReceiptPage', 'true');
-
 // Perform the request and return result
 $label->createLabel();
 
-//print_r($label->getArrayResponse());
-//print_r($label->getPostData());
-//var_dump($label->isError());
-
 // See if it was successful
 if ($label->isSuccess()) {
-    //echo 'Done';
-    //echo "\n Confirmation:" . $label->getConfirmationNumber();
-
     $label = $label->getLabelContents();
 
     if ($label) {

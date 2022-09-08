@@ -26,9 +26,7 @@ $label->addContent('Shirt', '10', 0, 10);
 // Perform the request and return result
 $label->createLabel();
 
-//print_r($label->getArrayResponse());
 print_r($label->getPostData());
-//var_dump($label->isError());
 
 // See if it was successful
 if ($label->isSuccess()) {

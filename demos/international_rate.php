@@ -8,27 +8,27 @@ $rate = new \USPS\Rate('xxxx');
 $rate->setInternationalCall(true);
 $rate->addExtraOption('Revision', 2);
 
-$package = new RatePackage;
-$package->setPounds(15.12345678);
-$package->setOunces(0);
-$package->setField('Machinable', 'True');
-$package->setField('MailType', 'Package');
-$package->setField('GXG', array(
-  'POBoxFlag' => 'Y',
-  'GiftFlag' => 'Y'
-));
-$package->setField('ValueOfContents', 200);
-$package->setField('Country', 'Australia');
-$package->setField('Container', 'RECTANGULAR');
-$package->setField('Size', 'LARGE');
-$package->setField('Width', 10);
-$package->setField('Length', 15);
-$package->setField('Height', 10);
-$package->setField('Girth', 0);
-$package->setField('OriginZip', 18701);
-$package->setField('CommercialFlag', 'N');
-$package->setField('AcceptanceDateTime', '2016-07-05T13:15:00-06:00');
-$package->setField('DestinationPostalCode', '2046');
+$package = (new RatePackage)
+    ->setPounds(15.12345678)
+    ->setOunces(0)
+    ->setField('Machinable', 'True')
+    ->setField('MailType', 'Package')
+    ->setField('GXG', [
+        'POBoxFlag' => 'Y',
+        'GiftFlag' => 'Y'
+    ])
+    ->setField('ValueOfContents', 200)
+    ->setField('Country', 'Australia')
+    ->setField('Container', 'RECTANGULAR')
+    ->setField('Size', 'LARGE')
+    ->setField('Width', 10)
+    ->setField('Length', 15)
+    ->setField('Height', 10)
+    ->setField('Girth', 0)
+    ->setField('OriginZip', 18701)
+    ->setField('CommercialFlag', 'N')
+    ->setField('AcceptanceDateTime', '2016-07-05T13:15:00-06:00')
+    ->setField('DestinationPostalCode', '2046');
 
 // add the package to the rate stack
 $rate->addPackage($package);

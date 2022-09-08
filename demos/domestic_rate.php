@@ -11,19 +11,19 @@ $rate = new \USPS\Rate('xxxx');
 //$rate->setTestMode(true);
 
 // Create new package object and assign the properties
-// apartently the order you assign them is important so make sure
+// apparently the order you assign them is important so make sure
 // to set them as the example below
 // set the RatePackage for more info about the constants
-$package = new RatePackage();
-$package->setService(RatePackage::SERVICE_FIRST_CLASS);
-$package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
-$package->setZipOrigination(91601);
-$package->setZipDestination(91730);
-$package->setPounds(0);
-$package->setOunces(3.5);
-$package->setContainer('');
-$package->setSize(RatePackage::SIZE_REGULAR);
-$package->setField('Machinable', true);
+$package = (new RatePackage())
+    ->setService(RatePackage::SERVICE_FIRST_CLASS)
+    ->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER)
+    ->setZipOrigination(91601)
+    ->setZipDestination(91730)
+    ->setPounds(0)
+    ->setOunces(3.5)
+    ->setContainer('')
+    ->setSize(RatePackage::SIZE_REGULAR)
+    ->setField('Machinable', true);
 
 // add the package to the rate stack
 $rate->addPackage($package);

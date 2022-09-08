@@ -168,11 +168,11 @@ class RatePackage extends Rate
      * Add an element to the stack.
      *
      * @param string|int $key
-     * @param string|int $value
+     * @param mixed $value
      *
      * @return RatePackage
      */
-    public function setField(string|int $key, string|int $value): self
+    public function setField(string|int $key, mixed $value): self
     {
         $this->packageInfo[ucwords($key)] = $value;
 
