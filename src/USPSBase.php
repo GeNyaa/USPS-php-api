@@ -172,12 +172,12 @@ abstract class USPSBase
      * make the request.
      *
      * @param resource $ch Optional initialized cURL handle
-     * @param int $timeout
+     * @param int $timeout Time-out of request in seconds.
      * Optional cURL timeout value.
-     * 
+     *
      * @return string the response text
      */
-    protected function doRequest($ch = null, int $timeout)
+    protected function doRequest($ch = null, $timeout = 60)
     {
         if (!$ch) {
             $ch = curl_init();
