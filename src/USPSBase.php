@@ -172,10 +172,12 @@ abstract class USPSBase
      * make the request.
      *
      * @param resource $ch Optional initialized cURL handle
-     *
+     * @param int $timeout
+     * Optional cURL timeout value.
+     * 
      * @return string the response text
      */
-    protected function doRequest($ch = null)
+    protected function doRequest($ch = null, int $timeout)
     {
         if (!$ch) {
             $ch = curl_init();
@@ -189,7 +191,9 @@ abstract class USPSBase
         if (strpos($opts[CURLOPT_URL], 'https://') === false) {
             $opts[CURLOPT_PORT] = 80;
         }
-
+        if (is_int($timeout)) {
+            $opts[CURLOPT_TIMEOUT] = $timeout;
+        }
         // set options
         curl_setopt_array($ch, $opts);
 
