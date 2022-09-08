@@ -39,5 +39,5 @@ if ($label->isSuccess()) {
         exit;
     }
 } else {
-    echo 'Error: '.$label->getErrorMessage();
+    echo sprintf('Error: %s', $label->getErrorMessage());
 }

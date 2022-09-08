@@ -19,5 +19,5 @@ print_r($tracking->getArrayResponse());
 if ($tracking->isSuccess()) {
     echo 'Done';
 } else {
-    echo 'Error: '.$tracking->getErrorMessage();
+    echo sprintf('Error: %s', $tracking->getErrorMessage());
 }

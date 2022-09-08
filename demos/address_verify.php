@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 require_once('autoload.php');
 
@@ -11,14 +11,14 @@ $verify = new \USPS\AddressVerify('xxxx');
 // Create new address object and assign the properties
 // apartently the order you assign them is important so make sure
 // to set them as the example below
-$address = new \USPS\Address();
-$address->setFirmName('Apartment');
-$address->setApt('100');
-$address->setAddress('9200 Milliken Ave');
-$address->setCity('Rancho Cucomonga');
-$address->setState('CA');
-$address->setZip5(91730);
-$address->setZip4('');
+$address = (new \USPS\Address())
+    ->setFirmName('Apartment')
+    ->setApt('100')
+    ->setAddress('9200 Milliken Ave')
+    ->setCity('Rancho Cucomonga')
+    ->setState('CA')
+    ->setZip5(91730)
+    ->setZip4('');
 
 // Add the address object to the address verify class
 $verify->addAddress($address);
@@ -33,5 +33,5 @@ var_dump($verify->isError());
 if ($verify->isSuccess()) {
     echo 'Done';
 } else {
-    echo 'Error: '.$verify->getErrorMessage();
+    echo sprintf('Error: %s', $verify->getErrorMessage());
 }

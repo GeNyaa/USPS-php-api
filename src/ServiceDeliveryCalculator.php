@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,18 +10,18 @@ class ServiceDeliveryCalculator extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'SDCGetLocations';
+    protected string $apiVersion = 'SDCGetLocations';
     /**
      * @var array - route added so far.
      */
-    protected $route = [];
+    protected array $route = [];
 
     /**
      * Perform the API call.
      *
      * @return string
      */
-    public function getServiceDeliveryCalculation()
+    public function getServiceDeliveryCalculation(): string
     {
         return $this->doRequest();
     }
@@ -31,7 +31,7 @@ class ServiceDeliveryCalculator extends USPSBase
      *
      * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         return $this->route;
     }
@@ -50,7 +50,7 @@ class ServiceDeliveryCalculator extends USPSBase
      * @param null $accept_date     string in the format dd-mmm-yyyy.
      * @param null $accept_time     string in the format HHMM.
      */
-    public function addRoute($mail_class, $origin_zip, $destination_zip, $accept_date = null, $accept_time = null)
+    public function addRoute($mail_class, $origin_zip, $destination_zip, $accept_date = null, $accept_time = null): void
     {
         $route = [
             'MailClass'      => $mail_class,

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -7,29 +7,27 @@ namespace USPS;
  * used across other class to create addresses represented as objects.
  *
  * @since  1.0
- *
- * @author Vincent Gabriel
  */
 class Address
 {
     /**
      * @var array list of all key=>value pairs we added so far for the current address
      */
-    protected $addressInfo = [];
+    protected array $addressInfo = [];
 
     /**
      * Set the address2 property.
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setAddress($value)
+    public function setAddress(string|int $value): self
     {
-        return $this->setField('Address2', $value);
+        return $this->setAddress2($value);
     }
-    
-    public function setAddress2($value)
+
+    public function setAddress2(string|int $value): self
     {
         return $this->setField('Address2', $value);
     }
@@ -39,14 +37,14 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setApt($value)
+    public function setApt(string|int $value): self
     {
-        return $this->setField('Address1', $value);
+        return $this->setAddress1($value);
     }
-    
-    public function setAddress1($value)
+
+    public function setAddress1(string|int $value): self
     {
         return $this->setField('Address1', $value);
     }
@@ -56,9 +54,9 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setCity($value)
+    public function setCity(string|int $value): self
     {
         return $this->setField('City', $value);
     }
@@ -68,9 +66,9 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setState($value)
+    public function setState(string|int $value): self
     {
         return $this->setField('State', $value);
     }
@@ -80,9 +78,9 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setZip4($value)
+    public function setZip4(string|int $value): self
     {
         return $this->setField('Zip4', $value);
     }
@@ -92,16 +90,16 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setZip5($value)
+    public function setZip5(string|int $value): self
     {
         return $this->setField('Zip5', $value);
     }
-    
-    public function setZipcode($value)
+
+    public function setZipcode(string|int $value): self
     {
-        return $this->setField('Zip5', $value);
+        return $this->setZip5($value);
     }
 
     /**
@@ -109,9 +107,9 @@ class Address
      *
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setFirmName($value)
+    public function setFirmName(string|int $value): self
     {
         return $this->setField('FirmName', $value);
     }
@@ -122,9 +120,9 @@ class Address
      * @param string|int $key
      * @param string|int $value
      *
-     * @return object Address
+     * @return Address
      */
-    public function setField($key, $value)
+    public function setField(string|int $key, string|int $value): self
     {
         $this->addressInfo[ucwords($key)] = $value;
 
@@ -136,7 +134,7 @@ class Address
      *
      * @return array
      */
-    public function getAddressInfo()
+    public function getAddressInfo(): array
     {
         return $this->addressInfo;
     }

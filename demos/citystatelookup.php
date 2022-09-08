@@ -19,5 +19,5 @@ print_r($verify->getArrayResponse());
 if ($verify->isSuccess()) {
     echo 'Done';
 } else {
-    echo 'Error: '.$verify->getErrorMessage();
+    echo sprintf('Error: %s', $verify->getErrorMessage());
 }

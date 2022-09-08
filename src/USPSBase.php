@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -18,57 +18,57 @@ abstract class USPSBase
     /**
      * @var string - the usps username provided by the usps website
      */
-    protected $username = '';
+    protected string $username = '';
     /**
      *  the error code if one exists.
      *
      * @var int
      */
-    protected $errorCode = 0;
+    protected int $errorCode = 0;
     /**
      * the error message if one exists.
      *
      * @var string
      */
-    protected $errorMessage = '';
+    protected string $errorMessage = '';
     /**
      *  the response message.
      *
      * @var string
      */
-    protected $response = '';
+    protected string $response = '';
     /**
      *  the headers returned from the call made.
      *
      * @var array
      */
-    protected $headers = '';
+    protected array $headers = [];
     /**
      * The response represented as an array.
      *
      * @var array
      */
-    protected $arrayResponse = [];
+    protected array $arrayResponse = [];
     /**
      * All the post fields we will add to the call.
      *
      * @var array
      */
-    protected $postFields = [];
+    protected array $postFields = [];
     /**
      * The api type we are about to call.
      *
      * @var string
      */
-    protected $apiVersion = '';
+    protected string $apiVersion = '';
     /**
      * @var bool - set whether we are in a test mode or not
      */
-    public static $testMode = false;
+    public static bool $testMode = false;
     /**
      * @var array - different kind of supported api calls by this wrapper
      */
-    protected $apiCodes = [
+    protected array $apiCodes = [
         'RateV2'                          => 'RateV2Request',
         'RateV4'                          => 'RateV4Request',
         'IntlRateV2'                      => 'IntlRateV2Request',
@@ -88,8 +88,10 @@ abstract class USPSBase
     ];
     /**
      * Default options for curl.
+     *
+     * @var array<string, mixed>
      */
-    public static $CURL_OPTS = [
+    public static array $CURL_OPTS = [
         CURLOPT_CONNECTTIMEOUT => 30,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT        => 60,
@@ -105,7 +107,7 @@ abstract class USPSBase
      *
      * @param string $username - the usps api username
      */
-    public function __construct($username = '')
+    public function __construct(string $username = '')
     {
         $this->username = $username;
     }
@@ -115,53 +117,51 @@ abstract class USPSBase
      *
      * @param string $username - the usps api username
      */
-    public function setUsername($username)
+    public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
     }
 
     /**
      * Return the post data fields as an array.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getPostData()
+    public function getPostData(): array
     {
-        $fields = ['API' => $this->apiVersion, 'XML' => $this->getXMLString()];
-
-        return $fields;
+        return ['API' => $this->apiVersion, 'XML' => $this->getXMLString()];
     }
 
     /**
      * Set the api version we are going to use.
      *
      * @param string $version the new api version
-     *
-     * @return void
      */
-    public function setApiVersion($version)
+    public function setApiVersion($version): self
     {
         $this->apiVersion = $version;
+
+        return $this;
     }
 
     /**
      * Set whether we are in a test mode or not.
      *
      * @param bool $value
-     *
-     * @return void
      */
-    public function setTestMode($value)
+    public function setTestMode(bool $value): self
     {
         self::$testMode = (bool) $value;
+
+        return $this;
     }
 
     /**
      * Response api name.
-     *
-     * @return string
      */
-    public function getResponseApiName()
+    public function getResponseApiName(): string
     {
         return str_replace('Request', 'Response', $this->apiCodes[$this->apiVersion]);
     }
@@ -177,7 +177,7 @@ abstract class USPSBase
      *
      * @return string the response text
      */
-    protected function doRequest($ch = null, $timeout = 60)
+    protected function doRequest($ch = null, int $timeout = 60): string
     {
         if (!$ch) {
             $ch = curl_init();
@@ -227,7 +227,7 @@ abstract class USPSBase
         return $this->getResponse();
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return self::$testMode ? self::TEST_API_URL : self::LIVE_API_URL;
     }
@@ -236,10 +236,8 @@ abstract class USPSBase
 
     /**
      * Return the xml string built that we are about to send over to the api.
-     *
-     * @return string
      */
-    protected function getXMLString()
+    protected function getXMLString(): string
     {
         // Add in the defaults
         $postFields = [
@@ -256,10 +254,8 @@ abstract class USPSBase
 
     /**
      * Did we encounter an error?
-     *
-     * @return bool
      */
-    public function isError()
+    public function isError(): bool
     {
         $headers = $this->getHeaders();
         $response = $this->getArrayResponse();
@@ -284,20 +280,16 @@ abstract class USPSBase
 
     /**
      * Was the last call successful.
-     *
-     * @return bool
      */
-    public function isSuccess()
+    public function isSuccess(): bool
     {
         return !$this->isError() ? true : false;
     }
 
     /**
      * Return the response represented as string.
-     *
-     * @return array
      */
-    public function convertResponseToArray()
+    public function convertResponseToArray(): array
     {
         if ($this->getResponse()) {
             $this->setArrayResponse(XML2Array::createArray($this->getResponse()));
@@ -308,34 +300,24 @@ abstract class USPSBase
 
     /**
      * Set the array response value.
-     *
-     * @param array $value
-     *
-     * @return void
      */
-    public function setArrayResponse($value)
+    public function setArrayResponse(array $value): void
     {
         $this->arrayResponse = $value;
     }
 
     /**
      * Return the array representation of the last response.
-     *
-     * @return array
      */
-    public function getArrayResponse()
+    public function getArrayResponse(): array
     {
         return $this->arrayResponse;
     }
 
     /**
      * Set the response.
-     *
-     * @param mixed $response The response returned from the call
-     *
-     * @return self
      */
-    public function setResponse($response = '')
+    public function setResponse(mixed $response = ''): self
     {
         $this->response = $response;
 
@@ -344,10 +326,8 @@ abstract class USPSBase
 
     /**
      * Get the response data.
-     *
-     * @return mixed the response data
      */
-    public function getResponse()
+    public function getResponse(): mixed
     {
         return $this->response;
     }
@@ -356,10 +336,8 @@ abstract class USPSBase
      * Set the headers.
      *
      * @param array $headers the headers array
-     *
-     * @return self
      */
-    public function setHeaders($headers = [])
+    public function setHeaders(array $headers = []): self
     {
         $this->headers = $headers;
 
@@ -371,7 +349,7 @@ abstract class USPSBase
      *
      * @return array the headers returned from the call
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -380,10 +358,8 @@ abstract class USPSBase
      * Set the error code number.
      *
      * @param int $code the error code number
-     *
-     * @return self
      */
-    public function setErrorCode($code = 0)
+    public function setErrorCode($code = 0): self
     {
         $this->errorCode = $code;
 
@@ -392,10 +368,8 @@ abstract class USPSBase
 
     /**
      * Get the error code number.
-     *
-     * @return int error code number
      */
-    public function getErrorCode()
+    public function getErrorCode(): int
     {
         return $this->errorCode;
     }
@@ -404,10 +378,8 @@ abstract class USPSBase
      * Set the error message.
      *
      * @param string $message the error message
-     *
-     * @return self
      */
-    public function setErrorMessage($message = '')
+    public function setErrorMessage($message = ''): self
     {
         $this->errorMessage = $message;
 
@@ -419,20 +391,21 @@ abstract class USPSBase
      *
      * @return string error code message
      */
-    public function getErrorMessage()
+    public function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
 
     /**
      * Find a key inside a multi dim. array.
+     * Returns null if nothing is found.
      *
      * @param array  $array
      * @param string $key
      *
      * @return mixed
      */
-    protected function getValueByKey($array, $key)
+    protected function getValueByKey(array $array, string $key): mixed
     {
         foreach ($array as $k => $each) {
             if ($k === $key) {
@@ -446,6 +419,6 @@ abstract class USPSBase
             }
         }
 
-        // Nothing matched
+        return null;
     }
 }

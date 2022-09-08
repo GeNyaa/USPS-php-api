@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,18 +10,18 @@ class FirstClassServiceStandards extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'FirstClassMail';
+    protected string $apiVersion = 'FirstClassMail';
     /**
      * @var array - route added so far.
      */
-    protected $route = [];
+    protected array $route = [];
 
     /**
      * Perform the API call.
      *
      * @return string
      */
-    public function getServiceStandard()
+    public function getServiceStandard(): string
     {
         return $this->doRequest();
     }
@@ -31,7 +31,7 @@ class FirstClassServiceStandards extends USPSBase
      *
      * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         return $this->route;
     }
@@ -42,7 +42,7 @@ class FirstClassServiceStandards extends USPSBase
      * @param $origin_zip
      * @param $destination_zip
      */
-    public function addRoute($origin_zip, $destination_zip)
+    public function addRoute($origin_zip, $destination_zip): void
     {
         $this->route = [
             'OriginZip'      => $origin_zip,

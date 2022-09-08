@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,11 +10,11 @@ class PriorityMailServiceStandards extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'PriorityMail';
+    protected string $apiVersion = 'PriorityMail';
     /**
      * @var array - route added so far.
      */
-    protected $route = [];
+    protected array $route = [];
 
     /**
      * Perform the API call.

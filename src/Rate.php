@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -7,19 +7,17 @@ namespace USPS;
  * used to get a rate for shipping methods.
  *
  * @since  1.0
- *
- * @author Vincent Gabriel
  */
 class Rate extends USPSBase
 {
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'RateV4';
+    protected string $apiVersion = 'RateV4';
     /**
      * @var array - list of all addresses added so far
      */
-    protected $packages = [];
+    protected array $packages = [];
 
     /**
      * Perform the API call.

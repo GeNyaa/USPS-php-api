@@ -36,5 +36,5 @@ print_r($rate->getArrayResponse());
 if ($rate->isSuccess()) {
     echo 'Done';
 } else {
-    echo 'Error: '.$rate->getErrorMessage();
+    echo sprintf('Error: %s', $rate->getErrorMessage());
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,18 +10,18 @@ class PriorityLabel extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'ExpressMailLabel';
+    protected string $apiVersion = 'ExpressMailLabel';
     /**
      * @var array - route added so far.
      */
-    protected $fields = [];
+    protected array $fields = [];
 
     /**
      * Perform the API call.
      *
      * @return string
      */
-    public function createLabel()
+    public function createLabel(): string
     {
         // Add missing required
         $this->addMissingRequired();
@@ -48,7 +48,7 @@ class PriorityLabel extends USPSBase
      *
      * @return string|bool
      */
-    public function getConfirmationNumber()
+    public function getConfirmationNumber(): string|bool
     {
         $response = $this->getArrayResponse();
         // Check to make sure we have it
@@ -66,7 +66,7 @@ class PriorityLabel extends USPSBase
      *
      * @return string|bool
      */
-    public function getLabelContents()
+    public function getLabelContents(): string|bool
     {
         $response = $this->getArrayResponse();
         // Check to make sure we have it
@@ -84,7 +84,7 @@ class PriorityLabel extends USPSBase
      *
      * @return string|bool
      */
-    public function getReceiptContents()
+    public function getReceiptContents(): string|bool
     {
         $response = $this->getArrayResponse();
         // Check to make sure we have it
@@ -102,7 +102,7 @@ class PriorityLabel extends USPSBase
      *
      * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         return $this->fields;
     }
@@ -121,7 +121,7 @@ class PriorityLabel extends USPSBase
      * @param string $zip4
      * @param string $phone
      *
-     * @return object
+     * @return PriorityLabel
      */
     public function setFromAddress(
         $firstName,
@@ -134,7 +134,8 @@ class PriorityLabel extends USPSBase
         $address2 = null,
         $zip4 = null,
         $phone = null
-    ) {
+    ): self
+    {
         $this->setField(5, 'FromFirstName', $firstName);
         $this->setField(6, 'FromLastName', $lastName);
         $this->setField(7, 'FromFirm', $company);
@@ -163,7 +164,7 @@ class PriorityLabel extends USPSBase
      * @param string $zip4
      * @param string $phone
      *
-     * @return object
+     * @return PriorityLabel
      */
     public function setToAddress(
         $firstName,
@@ -176,7 +177,8 @@ class PriorityLabel extends USPSBase
         $address2 = null,
         $zip4 = null,
         $phone = null
-    ) {
+    ): self
+    {
         $this->setField(15, 'ToFirstName', $firstName);
         $this->setField(16, 'ToLastName', $lastName);
         $this->setField(17, 'ToFirm', $company);
@@ -196,9 +198,9 @@ class PriorityLabel extends USPSBase
      *
      * @param $weight
      *
-     * @return $this
+     * @return PriorityLabel
      */
-    public function setWeightOunces($weight)
+    public function setWeightOunces($weight): self
     {
         $this->setField(25, 'WeightInOunces', $weight);
 
@@ -213,9 +215,9 @@ class PriorityLabel extends USPSBase
      * @param string $key
      * @param string $value
      *
-     * @return object
+     * @return PriorityLabel
      */
-    public function setField($position, $key, $value)
+    public function setField($position, $key, $value): self
     {
         $this->fields[$position.':'.$key] = $value;
 
@@ -227,7 +229,7 @@ class PriorityLabel extends USPSBase
      *
      * @return void
      */
-    protected function addMissingRequired()
+    protected function addMissingRequired(): void
     {
         $required = [
             '1:Option'                 => '',

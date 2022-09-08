@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,18 +10,18 @@ class OpenDistributeLabel extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'OpenDistributePriorityV2';
+    protected string $apiVersion = 'OpenDistributePriorityV2';
     /**
      * @var array - route added so far.
      */
-    protected $fields = [];
+    protected array $fields = [];
 
     /**
      * Perform the API call.
      *
      * @return string
      */
-    public function createLabel()
+    public function createLabel(): string
     {
         // Add missing required
         $this->addMissingRequired();

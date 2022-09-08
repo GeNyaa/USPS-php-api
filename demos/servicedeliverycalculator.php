@@ -20,5 +20,5 @@ var_dump($delivery->getArrayResponse());
 if ($delivery->isSuccess()) {
     echo 'Done';
 } else {
-    echo 'Error: '.$delivery->getErrorMessage();
+    echo sprintf('Error: %s', $delivery->getErrorMessage());
 }

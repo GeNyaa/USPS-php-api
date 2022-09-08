@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -7,15 +7,13 @@ namespace USPS;
  * used by the ups rate class to create packages represented as objects.
  *
  * @since  1.0
- *
- * @author Vincent Gabriel
  */
 class RatePackage extends Rate
 {
     /**
      * @var array - list of all packages added so far
      */
-    protected $packageInfo = [];
+    protected array $packageInfo = [];
     /**
      * Services constants.
      */
@@ -75,9 +73,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setService($value)
+    public function setService(string|int $value): self
     {
         return $this->setField('Service', $value);
     }
@@ -87,9 +85,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setFirstClassMailType($value)
+    public function setFirstClassMailType(string|int $value): self
     {
         return $this->setField('FirstClassMailType', $value);
     }
@@ -99,9 +97,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setZipOrigination($value)
+    public function setZipOrigination(string|int $value): self
     {
         return $this->setField('ZipOrigination', $value);
     }
@@ -111,9 +109,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setZipDestination($value)
+    public function setZipDestination(string|int $value): self
     {
         return $this->setField('ZipDestination', $value);
     }
@@ -123,9 +121,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setPounds($value)
+    public function setPounds(string|int $value): self
     {
         return $this->setField('Pounds', $value);
     }
@@ -135,9 +133,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setOunces($value)
+    public function setOunces(string|int $value): self
     {
         return $this->setField('Ounces', $value);
     }
@@ -147,9 +145,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setContainer($value)
+    public function setContainer(string|int $value): self
     {
         return $this->setField('Container', $value);
     }
@@ -159,9 +157,9 @@ class RatePackage extends Rate
      *
      * @param string|int $value
      *
-     * @return object RatePackage
+     * @return RatePackage
      */
-    public function setSize($value)
+    public function setSize(string|int $value): self
     {
         return $this->setField('Size', $value);
     }
@@ -172,9 +170,9 @@ class RatePackage extends Rate
      * @param string|int $key
      * @param string|int $value
      *
-     * @return object USPSAddress
+     * @return RatePackage
      */
-    public function setField($key, $value)
+    public function setField(string|int $key, string|int $value): self
     {
         $this->packageInfo[ucwords($key)] = $value;
 
@@ -186,7 +184,7 @@ class RatePackage extends Rate
      *
      * @return array
      */
-    public function getPackageInfo()
+    public function getPackageInfo(): array
     {
         return $this->packageInfo;
     }

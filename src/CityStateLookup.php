@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -6,25 +6,24 @@ namespace USPS;
  * USPS City/State lookup
  * used to find a city/state by a zipcode lookup
  * @since 1.0
- * @author Vincent Gabriel
  */
 class CityStateLookup extends USPSBase
 {
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'CityStateLookup';
+    protected string $apiVersion = 'CityStateLookup';
     /**
      * @var array - list of all addresses added so far
      */
-    protected $addresses = [];
+    protected array $addresses = [];
 
     /**
      * Perform the API call.
      *
      * @return string
      */
-    public function lookup()
+    public function lookup(): string
     {
         return $this->doRequest();
     }
@@ -34,7 +33,7 @@ class CityStateLookup extends USPSBase
      *
      * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         return $this->addresses;
     }
@@ -48,7 +47,7 @@ class CityStateLookup extends USPSBase
      *
      * @return void
      */
-    public function addZipCode($zip5, $zip4 = '', $id = null)
+    public function addZipCode($zip5, $zip4 = '', $id = null): void
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
         $zipCodes = ['Zip5' => $zip5];

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace USPS;
 
@@ -10,25 +10,25 @@ class TrackConfirm extends USPSBase
     /**
      * @var string - the api version used for this type of call
      */
-    protected $apiVersion = 'TrackV2';
+    protected string $apiVersion = 'TrackV2';
     /**
      * @var string - revision version for including additional response fields
      */
-    protected $revision = '';
+    protected string $revision = '';
     /**
      * @var string - User IP address. Required when TrackFieldRequest[Revision=’1’].
      */
-    protected $clientIp = '';
+    protected string $clientIp = '';
     /**
      * @var string - Internal User Identification. Required when TrackFieldRequest[Revision=’1’].
      */
-    protected $sourceId = '';
+    protected string $sourceId = '';
     /**
      * @var array - list of all packages added so far
      */
-    protected $packages = [];
+    protected array $packages = [];
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return self::$testMode ? 'https://production.shippingapis.com/ShippingAPITest.dll' : 'https://production.shippingapis.com/ShippingAPI.dll';
     }
@@ -38,7 +38,7 @@ class TrackConfirm extends USPSBase
      *
      * @return string
      */
-    public function getTracking()
+    public function getTracking(): string
     {
         return $this->doRequest();
     }
@@ -48,7 +48,7 @@ class TrackConfirm extends USPSBase
      *
      * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         $postFields = array();
         if ( !empty($this->revision) ) { $postFields['Revision'] = $this->revision; }
@@ -65,7 +65,7 @@ class TrackConfirm extends USPSBase
      *
      * @return void
      */
-    public function addPackage($id)
+    public function addPackage(string $id): void
     {
         $this->packages['TrackID'][] = ['@attributes' => ['ID' => $id]];
     }
@@ -75,9 +75,9 @@ class TrackConfirm extends USPSBase
      *
      * @param string|int $value
      *
-     * @return object AddressVerify
+     * @return TrackConfirm
      */
-    public function setRevision($value)
+    public function setRevision(string|int $value): self
     {
         $this->revision = (string)$value;
 
@@ -89,9 +89,9 @@ class TrackConfirm extends USPSBase
      *
      * @param string $value
      *
-     * @return object AddressVerify
+     * @return TrackConfirm
      */
-    public function setClientIp($value)
+    public function setClientIp($value): self
     {
         $this->clientIp = (string)$value;
 
@@ -103,9 +103,9 @@ class TrackConfirm extends USPSBase
      *
      * @param string $value
      *
-     * @return object AddressVerify
+     * @return TrackConfirm
      */
-    public function setSourceId($value)
+    public function setSourceId($value): self
     {
         $this->sourceId = (string)$value;
 
