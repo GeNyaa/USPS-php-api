@@ -24,11 +24,14 @@ class Rate extends USPSBase
     /**
      * Perform the API call.
      *
+     * @param int $timeout
+     * Optionally override the cURL timeout.
+     * 
      * @return string
      */
-    public function getRate()
+    public function getRate(int $timeout)
     {
-        return $this->doRequest();
+        return $this->doRequest(NULL,$timeout);
     }
 
     /**
