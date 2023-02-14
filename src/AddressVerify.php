@@ -25,8 +25,6 @@ class AddressVerify extends USPSBase
 
     /**
      * Perform the API call to verify the address.
-     *
-     * @return string
      */
     public function verify(): string
     {
@@ -35,8 +33,6 @@ class AddressVerify extends USPSBase
 
     /**
      * returns array of all addresses added so far.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -47,10 +43,9 @@ class AddressVerify extends USPSBase
     /**
      * Add Address to the stack.
      *
-     * @param Address $data
-     * @param ?string  $id   the address unique id
+     * @return $this
      */
-    public function addAddress(Address $data, string $id = null): self
+    public function addAddress(Address $data, string $id = null): static
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
 
@@ -62,11 +57,9 @@ class AddressVerify extends USPSBase
     /**
      * Set the revision value
      *
-     * @param string|int $value
-     *
-     * @return AddressVerify
+     * @return $this
      */
-    public function setRevision(string|int $value): self
+    public function setRevision(string|int $value): static
     {
         $this->revision = (string)$value;
 

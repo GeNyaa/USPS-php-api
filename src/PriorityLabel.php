@@ -8,18 +8,16 @@ namespace USPS;
 class PriorityLabel extends USPSBase
 {
     /**
-     * @var string - the api version used for this type of call
+     * @var string the api version used for this type of call
      */
     protected string $apiVersion = 'ExpressMailLabel';
     /**
-     * @var array - route added so far.
+     * @var array route added so far.
      */
     protected array $fields = [];
 
     /**
      * Perform the API call.
-     *
-     * @return string
      */
     public function createLabel(): string
     {
@@ -45,8 +43,6 @@ class PriorityLabel extends USPSBase
 
     /**
      * Return the USPS confirmation/tracking number if we have one.
-     *
-     * @return string|bool
      */
     public function getConfirmationNumber(): string|bool
     {
@@ -63,8 +59,6 @@ class PriorityLabel extends USPSBase
 
     /**
      * Return the USPS label as a base64 encoded string.
-     *
-     * @return string|bool
      */
     public function getLabelContents(): string|bool
     {
@@ -81,8 +75,6 @@ class PriorityLabel extends USPSBase
 
     /**
      * Return the USPS receipt as a base64 encoded string.
-     *
-     * @return string|bool
      */
     public function getReceiptContents(): string|bool
     {
@@ -99,8 +91,6 @@ class PriorityLabel extends USPSBase
 
     /**
      * returns array of all fields added.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -110,31 +100,20 @@ class PriorityLabel extends USPSBase
     /**
      * Set the from address.
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $company
-     * @param string $address
-     * @param string $city
-     * @param string $state
-     * @param string $zip
-     * @param string $address2
-     * @param string $zip4
-     * @param string $phone
-     *
-     * @return PriorityLabel
+     * @return $this
      */
     public function setFromAddress(
-        $firstName,
-        $lastName,
-        $company,
-        $address,
-        $city,
-        $state,
-        $zip,
-        $address2 = null,
-        $zip4 = null,
-        $phone = null
-    ): self
+        string $firstName,
+        string $lastName,
+        string $company,
+        string $address,
+        string $city,
+        string $state,
+        string $zip,
+        string $address2 = null,
+        string $zip4 = null,
+        string $phone = null
+    ): static
     {
         $this->setField(5, 'FromFirstName', $firstName);
         $this->setField(6, 'FromLastName', $lastName);
@@ -153,31 +132,20 @@ class PriorityLabel extends USPSBase
     /**
      * Set the to address.
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $company
-     * @param string $address
-     * @param string $city
-     * @param string $state
-     * @param string $zip
-     * @param string $address2
-     * @param string $zip4
-     * @param string $phone
-     *
-     * @return PriorityLabel
+     * @return $this
      */
     public function setToAddress(
-        $firstName,
-        $lastName,
-        $company,
-        $address,
-        $city,
-        $state,
-        $zip,
-        $address2 = null,
-        $zip4 = null,
-        $phone = null
-    ): self
+        string $firstName,
+        string $lastName,
+        string $company,
+        string $address,
+        string $city,
+        string $state,
+        string $zip,
+        string $address2 = null,
+        string $zip4 = null,
+        string $phone = null
+    ): static
     {
         $this->setField(15, 'ToFirstName', $firstName);
         $this->setField(16, 'ToLastName', $lastName);
@@ -196,11 +164,9 @@ class PriorityLabel extends USPSBase
     /**
      * Set package weight in ounces.
      *
-     * @param $weight
-     *
-     * @return PriorityLabel
+     * @return $this
      */
-    public function setWeightOunces($weight): self
+    public function setWeightOunces(string $weight): static
     {
         $this->setField(25, 'WeightInOunces', $weight);
 
@@ -211,13 +177,9 @@ class PriorityLabel extends USPSBase
      * Set any other requried string make sure you set the correct position as well
      * as the position of the items matters.
      *
-     * @param int    $position
-     * @param string $key
-     * @param string $value
-     *
-     * @return PriorityLabel
+     * @return $this
      */
-    public function setField($position, $key, $value): self
+    public function setField(int $position, string $key, string $value): static
     {
         $this->fields[$position.':'.$key] = $value;
 
@@ -226,8 +188,6 @@ class PriorityLabel extends USPSBase
 
     /**
      * Add missing required elements.
-     *
-     * @return void
      */
     protected function addMissingRequired(): void
     {

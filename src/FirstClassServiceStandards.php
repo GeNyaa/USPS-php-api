@@ -8,18 +8,16 @@ namespace USPS;
 class FirstClassServiceStandards extends USPSBase
 {
     /**
-     * @var string - the api version used for this type of call
+     * @var string the api version used for this type of call
      */
     protected string $apiVersion = 'FirstClassMail';
     /**
-     * @var array - route added so far.
+     * @var array route added so far.
      */
     protected array $route = [];
 
     /**
      * Perform the API call.
-     *
-     * @return string
      */
     public function getServiceStandard(): string
     {
@@ -28,8 +26,6 @@ class FirstClassServiceStandards extends USPSBase
 
     /**
      * returns array of all routes added so far.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -38,15 +34,14 @@ class FirstClassServiceStandards extends USPSBase
 
     /**
      * Add route to the stack.
-     *
-     * @param $origin_zip
-     * @param $destination_zip
      */
-    public function addRoute($origin_zip, $destination_zip): void
+    public function addRoute(string|int $origin_zip, string|int $destination_zip): static
     {
         $this->route = [
             'OriginZip'      => $origin_zip,
             'DestinationZip' => $destination_zip,
         ];
+
+        return $this;
     }
 }

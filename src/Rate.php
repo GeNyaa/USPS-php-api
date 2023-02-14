@@ -21,59 +21,49 @@ class Rate extends USPSBase
 
     /**
      * Perform the API call.
-     *
-     * @param int $timeout Time-out in seconds.
-     *
-     * @return string
      */
-    public function getRate($timeout = 60)
+    public function getRate(int $timeout = 60): string
     {
-        return $this->doRequest(NULL, $timeout);
+        return $this->doRequest(null, $timeout);
     }
 
     /**
      * returns array of all packages added so far.
-     *
-     * @return array
      */
-    public function getPostFields()
+    public function getPostFields(): array
     {
         return $this->packages;
     }
 
     /**
      * sets the type of call to perform domestic or international.
-     *
-     * @param $status
-     *
-     * @return array
      */
-    public function setInternationalCall($status)
+    public function setInternationalCall(bool $status): array
     {
         $this->apiVersion = $status === true ? 'IntlRateV2' : 'RateV4';
     }
 
     /**
      * Add other option for International & Insurance.
-     *
-     * @param string|int $key
-     * @param string|int $value
      */
-    public function addExtraOption($key, $value)
+    public function addExtraOption(string|int $key, mixed $value): static
     {
         $this->packages[$key][] = $value;
+
+        return $this;
     }
 
     /**
      * Add Package to the stack.
      *
-     * @param RatePackage $data
-     * @param string      $id   the address unique id
+     * @param string|null $id the address unique id
      */
-    public function addPackage(RatePackage $data, $id = null)
+    public function addPackage(RatePackage $data, string $id = null): static
     {
         $packageId = $id !== null ? $id : ((count($this->packages) + 1));
 
         $this->packages['Package'][] = array_merge(['@attributes' => ['ID' => $packageId]], $data->getPackageInfo());
+
+        return $this;
     }
 }

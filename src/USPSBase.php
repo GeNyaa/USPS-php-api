@@ -149,11 +149,11 @@ abstract class USPSBase
     /**
      * Set whether we are in a test mode or not.
      *
-     * @param bool $value
+     * @return $this
      */
-    public function setTestMode(bool $value): self
+    public function setTestMode(bool $value): static
     {
-        self::$testMode = (bool) $value;
+        self::$testMode = $value;
 
         return $this;
     }
@@ -327,7 +327,7 @@ abstract class USPSBase
     /**
      * Get the response data.
      */
-    public function getResponse(): mixed
+    public function getResponse(): string
     {
         return $this->response;
     }

@@ -2,27 +2,19 @@
 
 namespace USPS;
 
-/**
- * USPS Zip code lookup by city/state
- * used to find a zip code by city/state lookup.
- *
- * @since  1.0
- */
 class ZipCodeLookup extends USPSBase
 {
     /**
-     * @var string - the api version used for this type of call
+     * @var string the api version used for this type of call
      */
     protected string $apiVersion = 'ZipCodeLookup';
     /**
-     * @var array - list of all addresses added so far
+     * @var array list of all addresses added so far
      */
     protected array $addresses = [];
 
     /**
      * Perform the API call.
-     *
-     * @return string
      */
     public function lookup(): string
     {
@@ -31,8 +23,6 @@ class ZipCodeLookup extends USPSBase
 
     /**
      * returns array of all addresses added so far.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -44,8 +34,10 @@ class ZipCodeLookup extends USPSBase
      *
      * @param Address $data
      * @param string  $id   the address unique id
+     *
+     * @return $this
      */
-    public function addAddress(Address $data, $id = null): self
+    public function addAddress(Address $data, string $id = null): static
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
 

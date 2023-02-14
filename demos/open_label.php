@@ -3,13 +3,25 @@
 require_once('autoload.php');
 
 // Initiate and set the username provided from usps
-$label = new \USPS\OpenDistributeLabel('xxxx');
+$label = (new \USPS\OpenDistributeLabel('xxxx'))
+    ->setFromAddress(
+        'John',
+        'Doe',
+        '',
+        '5161 Lankershim Blvd',
+        'North Hollywood',
+        'CA',
+        '91601',
+        '# 204'
+    )->setToAddress(
+        'Vincent Gabriel',
+        '5440 Tujunga Ave',
+        'North Hollywood',
+        'CA',
+        '91601',
+        '707'
+    )->setWeightOunces(1);
 
-$label->setFromAddress('John', 'Doe', '', '5161 Lankershim Blvd', 'North Hollywood', 'CA', '91601', '# 204');
-$label->setToAddress('Vincent Gabriel', '5440 Tujunga Ave', 'North Hollywood', 'CA', '91601', '707');
-$label->setWeightOunces(1);
-
-// Perform the request and return result
 $label->createLabel();
 
 print_r($label->getPostData());

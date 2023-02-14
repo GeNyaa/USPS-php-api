@@ -2,6 +2,8 @@
 
 require_once('autoload.php');
 
+use USPS\Enum\MailType;
+use USPS\Enum\ServiceType;
 use USPS\RatePackage;
 
 // Initiate and set the username provided from usps
@@ -15,8 +17,8 @@ $rate = new \USPS\Rate('xxxx');
 // to set them as the example below
 // set the RatePackage for more info about the constants
 $package = (new RatePackage())
-    ->setService(RatePackage::SERVICE_FIRST_CLASS)
-    ->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER)
+    ->setService(ServiceType::FIRST_CLASS)
+    ->setFirstClassMailType(MailType::LETTER)
     ->setZipOrigination(91601)
     ->setZipDestination(91730)
     ->setPounds(0)

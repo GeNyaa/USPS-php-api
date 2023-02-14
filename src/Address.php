@@ -18,16 +18,19 @@ class Address
     /**
      * Set the address2 property.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setAddress(string|int $value): self
+    public function setAddress(string|int $value): static
     {
         return $this->setAddress2($value);
     }
 
-    public function setAddress2(string|int $value): self
+    /**
+     * Set the address2 property.
+     *
+     * @return $this
+     */
+    public function setAddress2(string|int $value): static
     {
         return $this->setField('Address2', $value);
     }
@@ -35,16 +38,14 @@ class Address
     /**
      * Set the address1 property usually the apt or suit number.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setApt(string|int $value): self
+    public function setApt(string|int $value): static
     {
         return $this->setAddress1($value);
     }
 
-    public function setAddress1(string|int $value): self
+    public function setAddress1(string|int $value): static
     {
         return $this->setField('Address1', $value);
     }
@@ -52,11 +53,9 @@ class Address
     /**
      * Set the city property.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setCity(string|int $value): self
+    public function setCity(string|int $value): static
     {
         return $this->setField('City', $value);
     }
@@ -64,11 +63,9 @@ class Address
     /**
      * Set the state property.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setState(string|int $value): self
+    public function setState(string|int $value): static
     {
         return $this->setField('State', $value);
     }
@@ -76,11 +73,9 @@ class Address
     /**
      * Set the zip4 property - zip code value represented by 4 integers.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setZip4(string|int $value): self
+    public function setZip4(string|int $value): static
     {
         return $this->setField('Zip4', $value);
     }
@@ -88,28 +83,27 @@ class Address
     /**
      * Set the zip5 property - zip code value represented by 5 integers.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setZip5(string|int $value): self
+    public function setZip5(string|int $value): static
     {
         return $this->setField('Zip5', $value);
     }
 
-    public function setZipcode(string|int $value): self
+    /**
+     * @return $this
+     */
+    public function setZipcode(string|int $value): static
     {
         return $this->setZip5($value);
     }
 
     /**
-     * Set the firmname property.
+     * Set the firm name property.
      *
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setFirmName(string|int $value): self
+    public function setFirmName(string|int $value): static
     {
         return $this->setField('FirmName', $value);
     }
@@ -117,12 +111,9 @@ class Address
     /**
      * Add an element to the stack.
      *
-     * @param string|int $key
-     * @param string|int $value
-     *
-     * @return Address
+     * @return $this
      */
-    public function setField(string|int $key, string|int $value): self
+    public function setField(string|int $key, string|int $value): static
     {
         $this->addressInfo[ucwords($key)] = $value;
 
@@ -131,8 +122,6 @@ class Address
 
     /**
      * Returns a list of all the info we gathered so far in the current address object.
-     *
-     * @return array
      */
     public function getAddressInfo(): array
     {

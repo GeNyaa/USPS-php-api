@@ -10,18 +10,16 @@ namespace USPS;
 class CityStateLookup extends USPSBase
 {
     /**
-     * @var string - the api version used for this type of call
+     * @var string the api version used for this type of call
      */
     protected string $apiVersion = 'CityStateLookup';
     /**
-     * @var array - list of all addresses added so far
+     * @var array list of all addresses added so far
      */
     protected array $addresses = [];
 
     /**
      * Perform the API call.
-     *
-     * @return string
      */
     public function lookup(): string
     {
@@ -30,8 +28,6 @@ class CityStateLookup extends USPSBase
 
     /**
      * returns array of all addresses added so far.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -41,13 +37,9 @@ class CityStateLookup extends USPSBase
     /**
      * Add zip zip code to the stack.
      *
-     * @param string $zip5 - zip code 5 integers
-     * @param string $zip4 - optional 4 integers zip code
-     * @param string $id   the address unique id
-     *
-     * @return void
+     * @return $this
      */
-    public function addZipCode($zip5, $zip4 = '', $id = null): void
+    public function addZipCode(string $zip5, string $zip4 = '', string $id = null): static
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
         $zipCodes = ['Zip5' => $zip5];
@@ -55,5 +47,7 @@ class CityStateLookup extends USPSBase
             $zipCodes['Zip4'] = $zip4;
         }
         $this->addresses['ZipCode'][] = array_merge(['@attributes' => ['ID' => $packageId]], $zipCodes);
+
+        return $this;
     }
 }

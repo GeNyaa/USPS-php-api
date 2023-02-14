@@ -6,12 +6,28 @@ require_once('autoload.php');
 $label = new \USPS\PriorityLabel('xxxx');
 
 // During test mode this seems not to always work as expected
-$label->setTestMode(true);
-
-$label->setFromAddress('John', 'Doe', '', '5161 Lankershim Blvd', 'North Hollywood', 'CA', '91601', '# 204', '', '8882721214');
-$label->setToAddress('Vincent', 'Gabriel', '', '230 Murray St', 'New York', 'NY', '10282');
-$label->setWeightOunces(1);
-$label->setField(36, 'LabelDate', '03/12/2014');
+$label->setTestMode(true)
+    ->setFromAddress(
+        'John',
+        'Doe',
+        '',
+        '5161 Lankershim Blvd',
+        'North Hollywood',
+        'CA',
+        '91601',
+        '# 204',
+        '',
+        '8882721214'
+    )->setToAddress(
+        'Vincent',
+        'Gabriel',
+        '',
+        '230 Murray St',
+        'New York',
+        'NY',
+        '10282'
+    )->setWeightOunces(1)
+    ->setField(36, 'LabelDate', '03/12/2014');
 
 // Perform the request and return result
 $label->createLabel();

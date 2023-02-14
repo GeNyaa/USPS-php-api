@@ -2,6 +2,9 @@
 
 namespace USPS;
 
+use USPS\Enum\MailType;
+use USPS\Enum\ServiceType;
+
 /**
  * USPS Rate Package
  * used by the ups rate class to create packages represented as objects.
@@ -15,40 +18,15 @@ class RatePackage extends Rate
      */
     protected array $packageInfo = [];
     /**
-     * Services constants.
-     */
-    const SERVICE_FIRST_CLASS = 'FIRST CLASS';
-    const SERVICE_FIRST_CLASS_COMMERCIAL = 'FIRST CLASS COMMERCIAL';
-    const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'FIRST CLASS HFP COMMERCIAL';
-    const SERVICE_PRIORITY = 'PRIORITY';
-    const SERVICE_PRIORITY_COMMERCIAL = 'PRIORITY COMMERCIAL';
-    const SERVICE_PRIORITY_HFP_COMMERCIAL = 'PRIORITY HFP COMMERCIAL';
-    const SERVICE_EXPRESS = 'EXPRESS';
-    const SERVICE_EXPRESS_COMMERCIAL = 'EXPRESS COMMERCIAL';
-    const SERVICE_EXPRESS_SH = 'EXPRESS SH';
-    const SERVICE_EXPRESS_SH_COMMERCIAL = 'EXPRESS SH COMMERCIAL';
-    const SERVICE_EXPRESS_HFP = 'EXPRESS HFP';
-    const SERVICE_EXPRESS_HFP_COMMERCIAL = 'EXPRESS HFP COMMERCIAL';
-    const SERVICE_PARCEL = 'PARCEL';
-    const SERVICE_MEDIA = 'MEDIA';
-    const SERVICE_LIBRARY = 'LIBRARY';
-    const SERVICE_ALL = 'ALL';
-    const SERVICE_ONLINE = 'ONLINE';
-    /**
      * First class mail type
      * required when you use one of the first class services.
      */
-    const MAIL_TYPE_LETTER = 'LETTER';
-    const MAIL_TYPE_FLAT = 'FLAT';
-    const MAIL_TYPE_PARCEL = 'PARCEL';
-    const MAIL_TYPE_POSTCARD = 'POSTCARD';
-    const MAIL_TYPE_PACKAGE = 'PACKAGE';
-    const MAIL_TYPE_PACKAGE_SERVICE = 'PACKAGE SERVICE';
+
     /**
      * Container constants.
      */
-    const CONTAINER_VARIABLE = 'VARIABLE';
-    const CONTAINER_FLAT_RATE_ENVELOPE = 'FLAT RATE ENVELOPE';
+    public const CONTAINER_VARIABLE = 'VARIABLE';
+    public const CONTAINER_FLAT_RATE_ENVELOPE = 'FLAT RATE ENVELOPE';
     const CONTAINER_PADDED_FLAT_RATE_ENVELOPE = 'PADDED FLAT RATE ENVELOPE';
     const CONTAINER_LEGAL_FLAT_RATE_ENVELOPE = 'LEGAL FLAT RATE ENVELOPE';
     const CONTAINER_SM_FLAT_RATE_ENVELOPE = 'SM FLAT RATE ENVELOPE';
@@ -71,35 +49,29 @@ class RatePackage extends Rate
     /**
      * Set the service property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setService(string|int $value): self
+    public function setService(ServiceType $value): static
     {
-        return $this->setField('Service', $value);
+        return $this->setField('Service', $value->value);
     }
 
     /**
      * Set the first class mail type property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setFirstClassMailType(string|int $value): self
+    public function setFirstClassMailType(MailType $value): static
     {
-        return $this->setField('FirstClassMailType', $value);
+        return $this->setField('FirstClassMailType', $value->value);
     }
 
     /**
      * Set the zip origin property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setZipOrigination(string|int $value): self
+    public function setZipOrigination(string|int $value): static
     {
         return $this->setField('ZipOrigination', $value);
     }
@@ -107,11 +79,9 @@ class RatePackage extends Rate
     /**
      * Set the zip destination property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setZipDestination(string|int $value): self
+    public function setZipDestination(string|int $value): static
     {
         return $this->setField('ZipDestination', $value);
     }
@@ -119,11 +89,9 @@ class RatePackage extends Rate
     /**
      * Set the pounds property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setPounds(string|int $value): self
+    public function setPounds(string|int $value): static
     {
         return $this->setField('Pounds', $value);
     }
@@ -131,11 +99,9 @@ class RatePackage extends Rate
     /**
      * Set the ounces property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setOunces(string|int $value): self
+    public function setOunces(string|int $value): static
     {
         return $this->setField('Ounces', $value);
     }
@@ -143,11 +109,9 @@ class RatePackage extends Rate
     /**
      * Set the container property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setContainer(string|int $value): self
+    public function setContainer(string|int $value): static
     {
         return $this->setField('Container', $value);
     }
@@ -155,11 +119,9 @@ class RatePackage extends Rate
     /**
      * Set the size property.
      *
-     * @param string|int $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setSize(string|int $value): self
+    public function setSize(string|int $value): static
     {
         return $this->setField('Size', $value);
     }
@@ -167,12 +129,9 @@ class RatePackage extends Rate
     /**
      * Add an element to the stack.
      *
-     * @param string|int $key
-     * @param mixed $value
-     *
-     * @return RatePackage
+     * @return $this
      */
-    public function setField(string|int $key, mixed $value): self
+    public function setField(string|int $key, mixed $value): static
     {
         $this->packageInfo[ucwords($key)] = $value;
 
@@ -181,8 +140,6 @@ class RatePackage extends Rate
 
     /**
      * Returns a list of all the info we gathered so far in the current package object.
-     *
-     * @return array
      */
     public function getPackageInfo(): array
     {

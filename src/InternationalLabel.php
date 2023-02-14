@@ -2,17 +2,14 @@
 
 namespace USPS;
 
-/**
- * Class InternationalLabel.
- */
 class InternationalLabel extends USPSBase
 {
     /**
-     * @var string - the api version used for this type of call
+     * @var string the api version used for this type of call
      */
     protected string $apiVersion = 'ExpressMailIntl';
     /**
-     * @var array - route added so far.
+     * @var array route added so far.
      */
     protected array $fields = [];
 
@@ -20,8 +17,6 @@ class InternationalLabel extends USPSBase
 
     /**
      * Perform the API call.
-     *
-     * @return string
      */
     public function createLabel(): string
     {
@@ -52,8 +47,6 @@ class InternationalLabel extends USPSBase
 
     /**
      * Return the USPS confirmation/tracking number if we have one.
-     *
-     * @return string|bool
      */
     public function getConfirmationNumber(): string|bool
     {
@@ -70,8 +63,6 @@ class InternationalLabel extends USPSBase
 
     /**
      * Return the USPS label as a base64 encoded string.
-     *
-     * @return string|bool
      */
     public function getLabelContents(): string|bool
     {
@@ -88,8 +79,6 @@ class InternationalLabel extends USPSBase
 
     /**
      * returns array of all fields added.
-     *
-     * @return array
      */
     public function getPostFields(): array
     {
@@ -99,25 +88,17 @@ class InternationalLabel extends USPSBase
     /**
      * Add shipping contents.
      *
-     * @param      $description
-     * @param      $value
-     * @param      $pounds
-     * @param      $ounces
-     * @param int $quantity
-     * @param null $tarrifNumber
-     * @param null $countryOfOrigin
-     *
-     * @return InternationalLabel
+     * @return $this
      */
     public function addContent(
-        $description,
-        $value,
-        $pounds,
-        $ounces,
+        string $description,
+        string $value,
+        string $pounds,
+        string $ounces,
         int $quantity = 1,
-        $tariffNumber = null,
-        $countryOfOrigin = null
-    ): self
+        string $tariffNumber = null,
+        string $countryOfOrigin = null
+    ): static
     {
         $this->contents['ItemDetail'][] = [
             'Description'     => $description,
@@ -135,19 +116,7 @@ class InternationalLabel extends USPSBase
     /**
      * Set the from address.
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $company
-     * @param string $address
-     * @param string $city
-     * @param string $state
-     * @param string $zip
-     * @param string|null $address2
-     * @param string|null $zip4
-     * @param string|null $phone
-     * @param string|null $middleName
-     *
-     * @return InternationalLabel
+     * @return $this
      */
     public function setFromAddress(
         string $firstName,
@@ -161,7 +130,7 @@ class InternationalLabel extends USPSBase
         string $zip4 = null,
         string $phone = null,
         string $middleName = null
-    ): self
+    ): static
     {
         $this->setField(5, 'FromFirstName', $firstName);
         $this->setField(6, 'FromMiddleInitial', $middleName);
@@ -181,24 +150,7 @@ class InternationalLabel extends USPSBase
     /**
      * Set the to address.
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $company
-     * @param string $address
-     * @param string $city
-     * @param string $province
-     * @param string $country
-     * @param string $zip
-     * @param string|null $address2
-     * @param string $poBoxFlag
-     * @param string|null $phone
-     * @param string|null $fax
-     * @param string|null $email
-     *
-     * @return InternationalLabel
-     *
-     * @internal param string $state
-     * @internal param string $zip4
+     * @return $this
      */
     public function setToAddress(
         string $firstName,
@@ -214,7 +166,7 @@ class InternationalLabel extends USPSBase
         string $phone = null,
         string $fax = null,
         string $email = null
-    ): self
+    ): static
     {
         $this->setField(16, 'ToFirstName', $firstName);
         $this->setField(17, 'ToLastName', $lastName);
@@ -237,13 +189,9 @@ class InternationalLabel extends USPSBase
      * Set any other required string make sure you set the correct position as well
      * as the position of the items matters.
      *
-     * @param int    $position
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return InternationalLabel
+     * @return $this
      */
-    public function setField(int $position, string $key, mixed $value): self
+    public function setField(int $position, string $key, mixed $value): static
     {
         $this->fields[$position.':'.$key] = $value;
 
@@ -255,9 +203,9 @@ class InternationalLabel extends USPSBase
      *
      * @param float|int $weight
      *
-     * @return InternationalLabel
+     * @return $this
      */
-    public function setWeightOunces(float|int $weight): self
+    public function setWeightOunces(float|int $weight): static
     {
         $this->setField(33, 'GrossOunces', $weight);
 
@@ -269,9 +217,9 @@ class InternationalLabel extends USPSBase
      *
      * @param float|int $weight
      *
-     * @return InternationalLabel
+     * @return $this
      */
-    public function setWeightPounds(float|int $weight): self
+    public function setWeightPounds(float|int $weight): static
     {
         $this->setField(32, 'GrossPounds', $weight);
 
