@@ -16,7 +16,7 @@ This wrapper allows you to perform some basic calls to the USPS api. Some of the
 Requirements
 ============
 
-- PHP >= 8.0
+- PHP ^8.1
 - Configured with the cURL extension
 - USPS API Username
 
