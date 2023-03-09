@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class ServiceDeliveryCalculator.
  */
-class ServiceDeliveryCalculator extends USPSBase
+class ServiceDeliveryCalculator extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call

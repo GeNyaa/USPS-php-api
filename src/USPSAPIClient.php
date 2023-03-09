@@ -2,6 +2,11 @@
 
 namespace USPS;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use Spatie\ArrayToXml\ArrayToXml;
+use Vyuldashev\XmlToArray\XmlToArray;
+
 /**
  * USPS Base class
  * used to perform the actual api calls.
@@ -10,31 +15,21 @@ namespace USPS;
  *
  * @author Vincent Gabriel
  */
-abstract class USPSBase
+abstract class USPSAPIClient
 {
-    const LIVE_API_URL = 'https://secure.shippingapis.com/ShippingAPI.dll';
-    const TEST_API_URL = 'https://production.shippingapis.com/ShippingAPITest.dll';
+    private const LIVE_API_URL = 'https://secure.shippingapis.com/ShippingAPI.dll';
+    private const TEST_API_URL = 'https://production.shippingapis.com/ShippingAPITest.dll';
 
     /**
-     * @var string - the usps username provided by the usps website
-     */
-    protected string $username = '';
-    /**
      *  the error code if one exists.
-     *
-     * @var int
      */
-    protected int $errorCode = 0;
+    protected int|string $errorCode = 0;
     /**
      * the error message if one exists.
-     *
-     * @var string
      */
     protected string $errorMessage = '';
     /**
      *  the response message.
-     *
-     * @var string
      */
     protected string $response = '';
     /**
@@ -105,11 +100,17 @@ abstract class USPSBase
     /**
      * Constructor.
      *
-     * @param string $username - the usps api username
+     * @param string $username the usps username provided by the usps website
+     * @param ClientInterface|null $httpClient
      */
-    public function __construct(string $username = '')
+    public function __construct(
+        protected string $username = '',
+        protected ?ClientInterface $httpClient = null
+    )
     {
-        $this->username = $username;
+        if ($this->httpClient === null) {
+            $this->httpClient = new Client();
+        }
     }
 
     /**
@@ -241,15 +242,19 @@ abstract class USPSBase
     {
         // Add in the defaults
         $postFields = [
-            '@attributes' => ['USERID' => $this->username],
+            '_attributes' => ['USERID' => $this->username],
         ];
 
         // Add in the sub class data
         $postFields = array_merge($postFields, $this->getPostFields());
 
-        $xml = XMLParser::createXML($this->apiCodes[$this->apiVersion], $postFields);
-
-        return $xml->saveXML();
+        return ArrayToXml::convert(
+            $postFields,
+            [
+                'rootElementName' => $this->apiCodes[$this->apiVersion],
+            ],
+            xmlEncoding: 'UTF-8'
+        );
     }
 
     /**
@@ -292,7 +297,7 @@ abstract class USPSBase
     public function convertResponseToArray(): array
     {
         if ($this->getResponse()) {
-            $this->setArrayResponse(XML2Array::createArray($this->getResponse()));
+            $this->setArrayResponse(XmlToArray::convert($this->getResponse()));
         }
 
         return $this->getArrayResponse();
@@ -357,11 +362,11 @@ abstract class USPSBase
     /**
      * Set the error code number.
      *
-     * @param int $code the error code number
+     * @param int|string $code the error code number
      */
-    public function setErrorCode($code = 0): self
+    public function setErrorCode(int|string $code = 0): self
     {
-        $this->errorCode = $code;
+        $this->errorCode = (int) $code;
 
         return $this;
     }
@@ -412,10 +417,8 @@ abstract class USPSBase
                 return $each;
             }
 
-            if (is_array($each)) {
-                if ($return = $this->getValueByKey($each, $key)) {
-                    return $return;
-                }
+            if (is_array($each) && $return = $this->getValueByKey($each, $key)) {
+                return $return;
             }
         }
 

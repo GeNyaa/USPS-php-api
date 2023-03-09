@@ -8,7 +8,7 @@ namespace USPS;
  *
  * @since  1.0
  */
-class AddressVerify extends USPSBase
+class AddressVerify extends USPSAPIClient
 {
     /**
      * @var string - the api version used for this type of call
@@ -49,7 +49,7 @@ class AddressVerify extends USPSBase
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
 
-        $this->addresses['Address'][] = array_merge(['@attributes' => ['ID' => $packageId]], $data->getAddressInfo());
+        $this->addresses['Address'][] = array_merge(['_attributes' => ['ID' => $packageId]], $data->getAddressInfo());
 
         return $this;
     }

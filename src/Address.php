@@ -2,12 +2,6 @@
 
 namespace USPS;
 
-/**
- * USPS Address Class
- * used across other class to create addresses represented as objects.
- *
- * @since  1.0
- */
 class Address
 {
     /**
@@ -22,7 +16,7 @@ class Address
      */
     public function setAddress(string|int $value): static
     {
-        return $this->setAddress2($value);
+        return $this->setField('Address2', $value);
     }
 
     /**

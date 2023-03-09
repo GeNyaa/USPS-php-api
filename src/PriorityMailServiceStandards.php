@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class PriorityMailServiceStandards.
  */
-class PriorityMailServiceStandards extends USPSBase
+class PriorityMailServiceStandards extends USPSAPIClient
 {
     /**
      * @var string - the api version used for this type of call

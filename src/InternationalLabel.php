@@ -2,7 +2,7 @@
 
 namespace USPS;
 
-class InternationalLabel extends USPSBase
+class InternationalLabel extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call

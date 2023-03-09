@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class OpenDistributeLabel.
  */
-class OpenDistributeLabel extends USPSBase
+class OpenDistributeLabel extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call
