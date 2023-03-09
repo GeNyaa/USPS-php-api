@@ -38,9 +38,11 @@ class Rate extends USPSBase
     /**
      * sets the type of call to perform domestic or international.
      */
-    public function setInternationalCall(bool $status): array
+    public function setInternationalCall(bool $status): static
     {
         $this->apiVersion = $status === true ? 'IntlRateV2' : 'RateV4';
+
+        return $this;
     }
 
     /**
