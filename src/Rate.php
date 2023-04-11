@@ -8,7 +8,7 @@ namespace USPS;
  *
  * @since  1.0
  */
-class Rate extends USPSBase
+class Rate extends USPSAPIClient
 {
     /**
      * @var string - the api version used for this type of call
@@ -64,7 +64,7 @@ class Rate extends USPSBase
     {
         $packageId = $id !== null ? $id : ((count($this->packages) + 1));
 
-        $this->packages['Package'][] = array_merge(['@attributes' => ['ID' => $packageId]], $data->getPackageInfo());
+        $this->packages['Package'][] = array_merge(['_attributes' => ['ID' => $packageId]], $data->getPackageInfo());
 
         return $this;
     }

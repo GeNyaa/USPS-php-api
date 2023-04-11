@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class PriorityLabel.
  */
-class PriorityLabel extends USPSBase
+class PriorityLabel extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call

@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class TrackConfirm.
  */
-class TrackConfirm extends USPSBase
+class TrackConfirm extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call
@@ -63,7 +63,7 @@ class TrackConfirm extends USPSBase
      */
     public function addPackage(string $id): static
     {
-        $this->packages['TrackID'][] = ['@attributes' => ['ID' => $id]];
+        $this->packages['TrackID'][] = ['_attributes' => ['ID' => $id]];
 
         return $this;
     }

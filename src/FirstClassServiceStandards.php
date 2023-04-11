@@ -5,7 +5,7 @@ namespace USPS;
 /**
  * Class FirstClassServiceStandards.
  */
-class FirstClassServiceStandards extends USPSBase
+class FirstClassServiceStandards extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call

@@ -7,7 +7,7 @@ namespace USPS;
  * used to find a city/state by a zipcode lookup
  * @since 1.0
  */
-class CityStateLookup extends USPSBase
+class CityStateLookup extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call
@@ -46,7 +46,7 @@ class CityStateLookup extends USPSBase
         if ($zip4) {
             $zipCodes['Zip4'] = $zip4;
         }
-        $this->addresses['ZipCode'][] = array_merge(['@attributes' => ['ID' => $packageId]], $zipCodes);
+        $this->addresses['ZipCode'][] = array_merge(['_attributes' => ['ID' => $packageId]], $zipCodes);
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace USPS;
 
-class ZipCodeLookup extends USPSBase
+class ZipCodeLookup extends USPSAPIClient
 {
     /**
      * @var string the api version used for this type of call
@@ -41,7 +41,7 @@ class ZipCodeLookup extends USPSBase
     {
         $packageId = $id !== null ? $id : ((count($this->addresses) + 1));
 
-        $this->addresses['Address'][] = array_merge(['@attributes' => ['ID' => $packageId]], $data->getAddressInfo());
+        $this->addresses['Address'][] = array_merge(['_attributes' => ['ID' => $packageId]], $data->getAddressInfo());
 
         return $this;
     }
