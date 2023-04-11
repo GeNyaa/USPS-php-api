@@ -319,7 +319,11 @@ abstract class USPSBase
      */
     public function setResponse(mixed $response = ''): self
     {
-        $this->response = $response;
+        if (is_string($response)) {
+            $this->response = $response;
+        } else {
+            $this->response = '';
+        }
 
         return $this;
     }
