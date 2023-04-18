@@ -216,7 +216,7 @@ abstract class USPSBase
             $errorInfo = $this->getValueByKey($arrayResponse, 'Error');
 
             if ($errorInfo) {
-                $this->setErrorCode($errorInfo['Number']);
+                $this->setErrorCode((int) $errorInfo['Number']);
                 $this->setErrorMessage($errorInfo['Description']);
             }
         }
@@ -363,7 +363,7 @@ abstract class USPSBase
      *
      * @param int $code the error code number
      */
-    public function setErrorCode($code = 0): self
+    public function setErrorCode(int $code = 0): self
     {
         $this->errorCode = $code;
 
